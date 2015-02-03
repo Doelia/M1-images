@@ -17,14 +17,20 @@ void getVoisins(ImageBase& img, int x, int y, point v[]) {
 	if (yA < 0) yA = 0;
 	if (xB > img.getWidth()-1) xB = img.getWidth()-1;
 	if (yB > img.getHeight()-1) yB = img.getHeight()-1;
+
 	v[0].x = xA;
-	v[0].y = yA;
-	v[1].x = xA;
-	v[1].y = yB;
-	v[2].x = xB;
+	v[0].y = y;
+
+	v[1].x = xB;
+	v[1].y = y;
+
+	v[2].x = x;
 	v[2].y = yA;
-	v[3].x = xB;
+
+	v[3].x = x;
 	v[3].y = yB;
+
+	//cout << "voison of " << x << "," << y << " = " << v[0].x << "," << v[0].y << endl;
 }
 
 void getValuesPixels(ImageBase& img, point pixels[], int values[]) {
@@ -46,32 +52,35 @@ void colorVoisinsIn(ImageBase& img, int x, int y, int color) {
 	}
 }
 
-
-ImageBase eroder(ImageBase& in) {
-	ImageBase out(in.getWidth(), in.getHeight(), in.getColor());
+void colorAllIn(ImageBase& in, int val) {
 	for (int x = 0; x < in.getWidth(); ++x) {
 		for (int y = 0; y < in.getHeight(); ++y) {
-			if (in[x][y] == 255) {
-				colorVoisinsIn(out, x, y, 255);
-			}  {
-				out[x][y] = in[x][y];
+			in[x][y] = val;
+		}
+	}
+}
+
+ImageBase setToVal(ImageBase& in, int val) {
+	ImageBase out(in.getWidth(), in.getHeight(), in.getColor());
+	colorAllIn(out, val==255?0:255);
+	for (int x = 0; x < in.getWidth(); ++x) {
+		for (int y = 0; y < in.getHeight(); ++y) {
+			if (in[x][y] == val) {
+				colorVoisinsIn(out, x, y, val);
+				out[x][y] = val;
 			}
 		}
 	}
 	return out;
 }
 
+ImageBase eroder(ImageBase& in) {
+	ImageBase out = setToVal(in, 255);
+	return out;
+}
+
 ImageBase dilater(ImageBase& in) {
-	ImageBase out(in.getWidth(), in.getHeight(), in.getColor());
-	for (int x = 0; x < in.getWidth(); ++x) {
-		for (int y = 0; y < in.getHeight(); ++y) {
-			if (in[x][y] == 0) {
-				colorVoisinsIn(out, x, y, 0);
-			}  {
-				out[x][y] = in[x][y];
-			}
-		}
-	}
+	ImageBase out = setToVal(in, 0);
 	return out;
 }
 
@@ -114,6 +123,6 @@ int main(int argc, char **argv) {
 
 	out4.save(output);*/
 
-	ImageBase out = dilater(imIn);
+	ImageBase out = eroder(imIn);
 	out.save(output);
 }
