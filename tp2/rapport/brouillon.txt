@@ -9,6 +9,7 @@ Résultat du seuillage 90, réalisé dans le TP1 :
 
 ./seuil lena.pgm seul.pgm 90
 
+[seuil.pgm]
 
 # Erosion et fermeture
 
@@ -22,7 +23,11 @@ Le résultat semble le meme avec les deux algorithmes, bien que je n'ai pas anal
 
 Résultat de l'érosion :
 
+[erosion.pgm]
+
 Résultalt de la dilatation :
+
+[dilater.pgm]
 
 # Ouverture et fermerture
 
