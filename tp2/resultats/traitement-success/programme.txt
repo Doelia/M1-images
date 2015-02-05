@@ -1,0 +1,15 @@
+./dilater seuil.pgm s1.pgm
+./dilater s1.pgm s2.pgm
+./dilater s2.pgm s3.pgm
+
+./eroder s3.pgm s4.pgm
+./eroder s4.pgm s5.pgm
+./eroder s5.pgm s6.pgm
+./eroder s6.pgm s7.pgm
+./eroder s7.pgm s8.pgm
+./eroder s8.pgm s9.pgm
+
+./dilater s9.pgm s10.pgm
+./dilater s10.pgm s11.pgm
+./dilater s11.pgm s12.pgm
+

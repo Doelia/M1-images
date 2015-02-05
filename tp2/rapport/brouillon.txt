@@ -2,7 +2,6 @@ Fichier de base
 
 [lena.pgm]
 
-
 Seuillage d'une image
 
 Résultat du seuillage 90, réalisé dans le TP1 :
@@ -13,13 +12,14 @@ Résultat du seuillage 90, réalisé dans le TP1 :
 
 # Erosion et fermeture
 
-Au départ j'avais utilisé l'algorithme suivant :
+Au départ j'avais programmé l'algorithme suivant :
 Pour l'érosion : "Ne garder que les points qui ont 4 voisins noirs"
 
 J'ai finalement continué en utilisant l'algorithme suivant :
-"Si un point est noir, transformer tout ses voisins et lui mmeme en noir sur la nouvelle image, sinon le colorer en blanc"
+"Colorer tout les pixels en blanc sur l'image de sortie"
+"Si un point est noir, transformer tout ses voisins et lui meme en noir sur l'image de sortie"
 
-Le résultat semble le meme avec les deux algorithmes, bien que je n'ai pas analysé en précision la différence.
+Le résultat semble le meme avec les deux algorithmes, bien que je n'ai pas analysé la différence avec présision
 
 Résultat de l'érosion :
 
@@ -33,13 +33,21 @@ Résultalt de la dilatation :
 
 Fermeture de l'image (dilatation puis érosion)
 
-
 Ouverture de l'image (érosion puis dilatation)
 
 Fermeture puis ouverture
 
 Résultalt de 3 diltations, 6 érosions puis 3 dilatations
 
+[les 12 images]
+
 A moins que je n'ai pas compris la question, réaliser les transformation en appliquant les executables les uns après les autres ou executer les fonctions dans le m^eme programme n'a aucune différence, ce qui me semble parfaitement logique.
 
+4) Segmentation
+
+# Différence
+
+./difference seuil.pgm dilat.pgm diff.pgm
+
+[diff.pgm]
 

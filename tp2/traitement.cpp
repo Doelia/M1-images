@@ -95,34 +95,48 @@ ImageBase ouverture(ImageBase& img) {
 	return dilater(dilat);
 }
 
+ImageBase difference(ImageBase& img, ImageBase& dilat) {
+	int valObjet = 0;
+	ImageBase out(img.getWidth(), img.getHeight(), img.getColor());
+	for (int x = 0; x < img.getWidth(); ++x) {
+		for (int y = 0; y < img.getHeight(); ++y) {
+			if (img[x][y] == 255 &&  dilat[x][y] == 255) {
+				out[x][y] = 255;
+			}
+			if (img[x][y] == valObjet && dilat[x][y] == valObjet) {
+				out[x][y] = 255;
+			}
+			if (img[x][y] == 255 && dilat[x][y] == valObjet) {
+				out[x][y] = 0;
+			}
+		}
+	}
+	return out;
+}
+
 
 int main(int argc, char **argv) {
 
 	char input[250];
+	char input2[250];
 	char output[250];
 
-	if (argc == 3) {
+	if (argc == 4) {
 		sscanf (argv[1],"%s", input) ;
-		sscanf (argv[2],"%s", output);
+		sscanf (argv[2],"%s", input2);
+		sscanf (argv[3],"%s", output);
 	}
-	else if (argc == 2) {
-		sscanf (argv[1],"%s", input) ;
-		sprintf (output, "out.pgm");
-	} else {
-		sprintf (input, "out.pgm");
-		sprintf (output, "out.pgm");
+	else {
+		cout << "Bad argument" << endl;
+		return 0;
 	}
 
 	ImageBase imIn;
 	imIn.load(input);
 
-	/*ImageBase out = ouverture(imIn);
-	ImageBase out2 = fermeture(out);
-	ImageBase out3 = fermeture(out2);
-	ImageBase out4 = ouverture(out3);
+	ImageBase imDilat;
+	imDilat.load(input2);
 
-	out4.save(output);*/
-
-	ImageBase out = eroder(imIn);
+	ImageBase out = difference(imIn, imDilat);
 	out.save(output);
 }
