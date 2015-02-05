@@ -42,7 +42,6 @@ void getValuesPixels(ImageBase& img, point pixels[], int values[]) {
 }
 
 void colorVoisinsIn(ImageBase& img, int x, int y, int color) {
-	int nbrVoisins = 0;
 	point voisins[4];
 	getVoisins(img, x, y, voisins);
 	for (int i = 0; i < 4; i++) {
@@ -74,6 +73,21 @@ ImageBase setToVal(ImageBase& in, int val) {
 	return out;
 }
 
+
+ImageBase setToValv2(ImageBase& in, int val, bool sens) {
+	ImageBase out(in.getWidth(), in.getHeight(), in.getColor());
+	out.copy(in);
+	for (int x = 0; x < in.getWidth(); ++x) {
+		for (int y = 0; y < in.getHeight(); ++y) {
+			if ((sens && in[x][y] > val) || (!sens && in[x][y] <= val)) {
+				colorVoisinsIn(out, x, y, in[x][y]);
+			}
+		}
+	}
+	return out;
+}
+
+
 ImageBase eroder(ImageBase& in) {
 	ImageBase out = setToVal(in, 255);
 	return out;
@@ -81,6 +95,16 @@ ImageBase eroder(ImageBase& in) {
 
 ImageBase dilater(ImageBase& in) {
 	ImageBase out = setToVal(in, 0);
+	return out;
+}
+
+ImageBase dilaterv2(ImageBase& in) {
+	ImageBase out = setToValv2(in, 90, true);
+	return out;
+}
+
+ImageBase eroderv2(ImageBase& in) {
+	ImageBase out = setToValv2(in, 90, false);
 	return out;
 }
 
@@ -121,10 +145,10 @@ int main(int argc, char **argv) {
 	char input2[250];
 	char output[250];
 
-	if (argc == 4) {
+	if (argc == 3) {
 		sscanf (argv[1],"%s", input) ;
-		sscanf (argv[2],"%s", input2);
-		sscanf (argv[3],"%s", output);
+		sscanf (argv[2],"%s", output);
+		//sscanf (argv[3],"%s", output);
 	}
 	else {
 		cout << "Bad argument" << endl;
@@ -134,9 +158,11 @@ int main(int argc, char **argv) {
 	ImageBase imIn;
 	imIn.load(input);
 
+	/*
 	ImageBase imDilat;
 	imDilat.load(input2);
+	*/
 
-	ImageBase out = difference(imIn, imDilat);
+	ImageBase out = eroderv2(imIn);
 	out.save(output);
 }

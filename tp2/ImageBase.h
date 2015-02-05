@@ -47,9 +47,9 @@ public:
 	ImageBase(int imWidth, int imHeight, bool isColor);
 	~ImageBase(void);
 	
+	void copy(const ImageBase &copy);
 	///////////// Methodes
 protected:
-	void copy(const ImageBase &copy);
 
 public:
 	int getHeight() { return height; };
