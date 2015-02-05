@@ -41,15 +41,19 @@ void getValuesPixels(ImageBase& img, point pixels[], int values[]) {
 	}
 }
 
-void colorVoisinsIn(ImageBase& img, int x, int y, int color) {
+
+void colorVoisinsIn(ImageBase& img, int x, int y, int color, int canal) {
+	int decal = img.getColor()?3:1;
 	point voisins[4];
 	getVoisins(img, x, y, voisins);
 	for (int i = 0; i < 4; i++) {
 		int x = voisins[i].x;
 		int y = voisins[i].y;
-		img[x][y] = color;
+		img[x*decal][y*decal+canal] = color;
 	}
 }
+
+
 
 void colorAllIn(ImageBase& in, int val) {
 	for (int x = 0; x < in.getWidth(); ++x) {
@@ -65,7 +69,7 @@ ImageBase setToVal(ImageBase& in, int val) {
 	for (int x = 0; x < in.getWidth(); ++x) {
 		for (int y = 0; y < in.getHeight(); ++y) {
 			if (in[x][y] == val) {
-				colorVoisinsIn(out, x, y, val);
+				colorVoisinsIn(out, x, y, val, 0);
 				out[x][y] = val;
 			}
 		}
@@ -74,18 +78,23 @@ ImageBase setToVal(ImageBase& in, int val) {
 }
 
 
+
 ImageBase setToValv2(ImageBase& in, int val, bool sens) {
+	int decal = in.getColor()?3:1;
 	ImageBase out(in.getWidth(), in.getHeight(), in.getColor());
 	out.copy(in);
 	for (int x = 0; x < in.getWidth(); ++x) {
 		for (int y = 0; y < in.getHeight(); ++y) {
-			if ((sens && in[x][y] > val) || (!sens && in[x][y] <= val)) {
-				colorVoisinsIn(out, x, y, in[x][y]);
+			for (int c = 0; c < decal; ++c) {
+				if ((sens && in[x*decal][y*decal+c] > val) || (!sens && in[x*decal][y*3+decal] <= val)) {
+					colorVoisinsIn(out, x, y, in[x*decal][y*decal+c], c);
+				}
 			}
 		}
 	}
 	return out;
 }
+
 
 
 ImageBase eroder(ImageBase& in) {
@@ -163,6 +172,6 @@ int main(int argc, char **argv) {
 	imDilat.load(input2);
 	*/
 
-	ImageBase out = eroderv2(imIn);
+	ImageBase out = dilaterv2(imIn);
 	out.save(output);
 }
