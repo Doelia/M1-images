@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 	int colors[3][256];
 
 	for (int c = 0; c < 3; ++c)
-	for (int i = 0; i < 255; ++i) {
+	for (int i = 0; i < 256; ++i) {
 		colors[c][i] = 0;
 	}
 
@@ -30,16 +30,14 @@ int main(int argc, char **argv)
 	cout << imIn.getWidth() << "*" << imIn.getHeight() << endl;
 	for (int x = 0; x < imIn.getHeight(); ++x) {
 		for (int y = 0; y < imIn.getWidth(); ++y) {
-			for (int c = 0; c < decal; c++)
-			{
-				//cout << "[" << x*decal << "," << (y*decal+c)+c << endl;
+			for (int c = 0; c < decal; c++) {
 				int value = imIn[x*decal][y*decal+c];
 				colors[c][value]++;
 			}
 		}
 	}
 
-	for (int i = 0; i < 255; ++i) {
+	for (int i = 0; i < 256; ++i) {
 		printf("%d %d %d %d\n", i, colors[0][i], colors[1][i], colors[2][i]);
 	}
 
