@@ -91,13 +91,12 @@ int main(int argc, char **argv)
 	int** colors = histogramme(imIn);
 
 	for (int i = 0; i < 256; ++i) {
-		//printf("%d %d %d %d\n", i, colors[0][i], colors[1][i], colors[2][i]);
+		printf("%d %d %d %d\n", i, colors[0][i], colors[1][i], colors[2][i]);
 	}
 
 	float** integrs = repartitionNormalize(imIn, colors);
-
 	for (int i = 0; i < 256; ++i) {
-		printf("%d %f %f %f\n", i, integrs[0][i], integrs[1][i], integrs[2][i]);
+		//printf("%d %f %f %f\n", i, integrs[0][i], integrs[1][i], integrs[2][i]);
 	}
 
 	// plot 'repart.txt' using 1:2 with lines, 'repart.txt' using 1:3 with lines, 'repart.txt' using 1:4 with lines
