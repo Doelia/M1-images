@@ -4,16 +4,6 @@
 
 using namespace std;
 
-float transform(int val, int a, int b) {
-	if (val < a)
-		val = a;
-	if (val > b)
-		val = b;
-	int ecart = b - a ;
-	float produit = (val-a) * 255.0 / ecart;
-	return produit;
-}
-
 float* normaliser(ImageBase &im, int* vals) {
 	float size = im.getHeight() * im.getWidth();
 	float* out = (float*) malloc(256*sizeof(float));
@@ -43,7 +33,7 @@ int** histogramme(ImageBase &imIn) {
 		colors[c] = (int*) malloc(256*sizeof(int));
 	}
 
-	for (int c = 0; c < 3; ++c)
+	for (int c = 0; c < decal; ++c)
 	for (int i = 0; i < 256; ++i) {
 		colors[c][i] = 0;
 	}
@@ -73,6 +63,17 @@ float** repartitionNormalize(ImageBase &im, int** histo) {
 
 	return out;
 }
+
+/*
+int integrale(int vals[], int a, int b) {
+	int sum = 0;
+	for (int i = a; i < b; ++i) {
+		sum += vals[i];
+	}
+	return sum;
+}
+*/
+
 int main(int argc, char **argv)
 {
 	//// Parametres
@@ -82,61 +83,24 @@ int main(int argc, char **argv)
 	}
 
 	char input[250];
-	char output[250];
-
 	sscanf (argv[1],"%s", input) ;
-	sscanf (argv[2],"%s", output) ;
 	
 	ImageBase imIn;
 	imIn.load(input);
 
-	/*
-	int min[3] = {255, 255, 255};
-	int max[3] = {0, 0, 0};
-	int decal = imIn.getColor()?3:1;
+	int** colors = histogramme(imIn);
 
-	for (int x = 0; x < imIn.getHeight(); ++x) {
-		for (int y = 0; y < imIn.getWidth(); ++y) {
-			for (int c = 0; c < decal; c++) {
-				int value = imIn[x*decal][y*decal+c];
-				if (value < min[c]) {
-					min[c] = value;
-				}
-				if (value > max[c]) {
-					max[c] = value;
-				}
-			}
-		}
-	}
-	*/
-
-	int min[3] = {20, 20, 20};
-	int max[3] = {100, 100, 100};
-	int decal = imIn.getColor()?3:1;
-
-	cout << "alpha(r) = " << min[0] << endl;
-	cout << "alpha(g) = " << min[1] << endl;
-	cout << "alpha(b) = " << min[2] << endl;
-
-	cout << "beta(r) = " << max[0] << endl;
-	cout << "beta(g) = " << max[1] << endl;
-	cout << "beta(b) = " << max[2] << endl;
-
-	ImageBase imG(imIn.getWidth(), imIn.getHeight(), imIn.getColor());
-
-	float** normalFct = repartitionNormalize(imIn, histogramme(imIn));
-	
-	for (int x = 0; x < imIn.getHeight(); ++x) {
-		for (int y = 0; y < imIn.getWidth(); ++y) {
-			for (int c = 0; c < decal; c++) {
-				int val = imIn[x*decal][y*decal+c];
-				imG[x*decal][y*decal+c] = normalFct[c][val]*val;
-			}
-		}
+	for (int i = 0; i < 256; ++i) {
+		if (imIn.getColor())
+			printf("%d %d %d %d\n", i, colors[0][i], colors[1][i], colors[2][i]);
+		else
+			printf("%d %d\n", i, colors[0][i]);
 	}
 
-	imG.save(output);
-
+	// plot 'h.txt' using 1:2 with lines, 'h.txt' using 1:3 with lines, 'h.txt' using 1:4 with lines
+	// plot 'h.txt' with lines
+	// plot 'histo.txt' using 1:2 with lines, 'histo.txt' using 1:3 with lines, 'histo.txt' using 1:4 with lines
 
 	return 0;
 }
+

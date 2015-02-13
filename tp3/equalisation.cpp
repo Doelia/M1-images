@@ -4,6 +4,16 @@
 
 using namespace std;
 
+float transform(int val, int a, int b) {
+	if (val < a)
+		val = a;
+	if (val > b)
+		val = b;
+	int ecart = b - a ;
+	float produit = (val-a) * 255.0 / ecart;
+	return produit;
+}
+
 float* normaliser(ImageBase &im, int* vals) {
 	float size = im.getHeight() * im.getWidth();
 	float* out = (float*) malloc(256*sizeof(float));
@@ -63,17 +73,6 @@ float** repartitionNormalize(ImageBase &im, int** histo) {
 
 	return out;
 }
-
-/*
-int integrale(int vals[], int a, int b) {
-	int sum = 0;
-	for (int i = a; i < b; ++i) {
-		sum += vals[i];
-	}
-	return sum;
-}
-*/
-
 int main(int argc, char **argv)
 {
 	//// Parametres
@@ -83,25 +82,51 @@ int main(int argc, char **argv)
 	}
 
 	char input[250];
+	char output[250];
+
 	sscanf (argv[1],"%s", input) ;
+	sscanf (argv[2],"%s", output) ;
 	
 	ImageBase imIn;
 	imIn.load(input);
 
-	int** colors = histogramme(imIn);
+	/*
+	int min[3] = {255, 255, 255};
+	int max[3] = {0, 0, 0};
+	int decal = imIn.getColor()?3:1;
 
-	for (int i = 0; i < 256; ++i) {
-		printf("%d %d %d %d\n", i, colors[0][i], colors[1][i], colors[2][i]);
+	for (int x = 0; x < imIn.getHeight(); ++x) {
+		for (int y = 0; y < imIn.getWidth(); ++y) {
+			for (int c = 0; c < decal; c++) {
+				int value = imIn[x*decal][y*decal+c];
+				if (value < min[c]) {
+					min[c] = value;
+				}
+				if (value > max[c]) {
+					max[c] = value;
+				}
+			}
+		}
+	}
+	*/
+
+	int decal = imIn.getColor()?3:1;
+
+	ImageBase imG(imIn.getWidth(), imIn.getHeight(), imIn.getColor());
+
+	float** normalFct = repartitionNormalize(imIn, histogramme(imIn));
+	
+	for (int x = 0; x < imIn.getHeight(); ++x) {
+		for (int y = 0; y < imIn.getWidth(); ++y) {
+			for (int c = 0; c < decal; c++) {
+				int val = imIn[x*decal][y*decal+c];
+				imG[x*decal][y*decal+c] = normalFct[c][val]*255;
+			}
+		}
 	}
 
-	float** integrs = repartitionNormalize(imIn, colors);
-	for (int i = 0; i < 256; ++i) {
-		//printf("%d %f %f %f\n", i, integrs[0][i], integrs[1][i], integrs[2][i]);
-	}
+	imG.save(output);
 
-	// plot 'repart.txt' using 1:2 with lines, 'repart.txt' using 1:3 with lines, 'repart.txt' using 1:4 with lines
-	// plot 'histo.txt' using 1:2 with lines, 'histo.txt' using 1:3 with lines, 'histo.txt' using 1:4 with lines
 
 	return 0;
 }
-

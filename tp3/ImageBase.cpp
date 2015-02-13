@@ -16,8 +16,6 @@
 #include "ImageBase.h"
 #include "image_ppm.h"
 
-
-
 ImageBase::ImageBase(void)
 {
 	isValid = false;

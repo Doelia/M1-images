@@ -34,6 +34,7 @@ int main(int argc, char **argv)
 	ImageBase imIn;
 	imIn.load(input);
 
+	/*
 	int min[3] = {255, 255, 255};
 	int max[3] = {0, 0, 0};
 	int decal = imIn.getColor()?3:1;
@@ -51,11 +52,13 @@ int main(int argc, char **argv)
 			}
 		}
 	}
-	/*
-	int min[3] = {20, 20, 20};
-	int max[3] = {100, 100, 100};
+	//*/
+
+	//*
+	int min[3] = {50, 50, 50};
+	int max[3] = {175, 175, 175};
 	int decal = imIn.getColor()?3:1;
-	*/
+	//*/
 
 	cout << "alpha(r) = " << min[0] << endl;
 	cout << "alpha(g) = " << min[1] << endl;
