@@ -115,6 +115,11 @@ int main(int argc, char **argv)
 	ImageBase imG(imIn.getWidth(), imIn.getHeight(), imIn.getColor());
 
 	float** normalFct = repartitionNormalize(imIn, histogramme(imIn));
+
+
+	for (int i = 0; i < 256; ++i) {
+			printf("%d %f %f %f\n", i, normalFct[0][i], normalFct[1][i], normalFct[2][i]);
+	}
 	
 	for (int x = 0; x < imIn.getHeight(); ++x) {
 		for (int y = 0; y < imIn.getWidth(); ++y) {
