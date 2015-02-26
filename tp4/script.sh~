@@ -5,7 +5,7 @@
 
 imIn="$1"
 
-imColorBase="$imIn.pgm"
+imColorBase="$imIn.ppm"
 imGray="$imIn.gray.pgm"
 
 ./toGray "imgs/$imColorBase" "imgs/$imGray"
