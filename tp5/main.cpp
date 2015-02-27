@@ -60,20 +60,12 @@ int main(int argc, char **argv) {
 	ImageBase imIn;
 	imIn.load(input);
 
-	ImageBase imG(imIn.getWidth(), imIn.getHeight(), imIn.getColor());
+	ImageBase** divide = divideImage(imIn);
 
-	int decal = imIn.getColor()?3:1;
-	
-	for (int x = 0; x < imIn.getHeight(); ++x) {
-		for (int y = 0; y < imIn.getWidth(); ++y) {
-			for (int c = 0; c < decal; c++) {
-				int val = imIn[x*decal][y*decal+c];
-				imG[x*decal][y*decal+c] = val;
-			}
-		}
+	for (int i = 0; i < 4; ++i)
+	{
+		divide[i]->save(output);
 	}
-
-	imG.save(output);
 
 	return 0;
 }
