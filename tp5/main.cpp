@@ -175,17 +175,12 @@ ImageBase* goAlgo(ImageBase* imIn, int n, int seuil) {
 
 		
 		ImageBase* im = divide[i];
-		int* avg = getAvg(*(divide[i]));
 		int* variance = getVariance(*(divide[i]));
-		if (n == 0) {
-			colorImage(divide[i], avg);
-		}
+		if (variance[0] > seuil && im->getWidth() > 2 && n > 0)
+			divide[i] = goAlgo(divide[i], n, seuil);
 		else {
-			if (variance[0] > seuil && im->getWidth() > 2)
-				divide[i] = goAlgo(divide[i], n, seuil);
-			else {
-				colorImage(divide[i], avg);
-			}
+			int* avg = getAvg(*(divide[i]));
+			colorImage(divide[i], avg);
 		}
 		//divide[i]->save(out);
 
