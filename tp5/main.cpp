@@ -24,7 +24,6 @@ int* getAvg(ImageBase& imIn) {
 
 	for (int c = 0; c < decal; c++) {
 		avg[c] /= count;
-		//cout << " avg [" << c << "] = " << avg[c] << endl;
 	}
 
 	return avg;
@@ -52,7 +51,6 @@ int* getVariance(ImageBase& imIn) {
 
 	for (int c = 0; c < decal; c++) {
 		variance[c] /= count;
-		//cout << " avg [" << c << "] = " << avg[c] << endl;
 	}
 
 	return variance;
@@ -70,12 +68,8 @@ ImageBase* cropImage(ImageBase& imIn, int xBase, int yBase) {
 	for (int x = xBase; x < newWidth+xBase; ++x) {
 		for (int y = yBase; y < newHeight+yBase; ++y) {
 			for (int c = 0; c < decal; c++) {
-				//cout << "in : " << x << ", " << y << ", " << c << endl;
-				//cout << "out : " << xOut << ", " << yOut << ", " << c << endl;
-
 				int val = imIn[x*decal][y*decal+c];
 				(*(imgs))[xOut*decal][yOut*decal+c] = val;
-
 			}
 			yOut++;
 			if (yOut >= newWidth) {
@@ -97,9 +91,6 @@ ImageBase* mergeImage(ImageBase* images[4]) {
 	for (int x = 0; x < newWidth; ++x) {
 		for (int y = 0; y < newHeight; ++y) {
 			for (int c = 0; c < decal; c++) {
-				//cout << "in : " << x << ", " << y << ", " << c << endl;
-				//cout << "out : " << xOut << ", " << yOut << ", " << c << endl;
-				//cout << "traitement " << x << ", " << y << ", " << c << endl;
 
 				ImageBase* imIn;
 				int xOut = x;
@@ -126,13 +117,9 @@ ImageBase* mergeImage(ImageBase* images[4]) {
 
 				int val = (*imIn)[xOut*decal][yOut*decal+c];
 				(*(img))[x*decal][y*decal+c] = val;
-
 			}
-			
 		}
 	}
-
-	//cout << "merge done" << endl;
 
 	return img;
 }
@@ -146,8 +133,6 @@ ImageBase** divideImage(ImageBase& imIn) {
 	imgs[2] = cropImage(imIn, imIn.getWidth()/2, 0);
 	imgs[3] = cropImage(imIn, imIn.getWidth()/2, imIn.getHeight()/2);
 
-	//cout << "divide done" << endl;
-
 	return imgs;
 }
 
@@ -156,7 +141,6 @@ void colorImage(ImageBase* imIn, int color[]) {
 	for (int x = 0; x < imIn->getHeight(); ++x) {
 		for (int y = 0; y < imIn->getWidth(); ++y) {
 			for (int c = 0; c < decal; c++) {
-				//cout << "out = " << color[c] << endl;
 				(*imIn)[x*decal][y*decal+c] = color[c];
 			}
 		}
@@ -172,7 +156,6 @@ ImageBase* goAlgo(ImageBase* imIn, int n, int seuil) {
 	for (int i = 0; i < 4; ++i)	{
 		char out[256];
 		sprintf(out, "imgs/%d_%d_%d.ppm", n, i, rand());
-
 		
 		ImageBase* im = divide[i];
 		int* variance = getVariance(*(divide[i]));
@@ -183,7 +166,6 @@ ImageBase* goAlgo(ImageBase* imIn, int n, int seuil) {
 			colorImage(divide[i], avg);
 		}
 		//divide[i]->save(out);
-
 	}
 
 	ImageBase* merged = mergeImage(divide);
@@ -194,7 +176,6 @@ int main(int argc, char **argv) {
 
 	srand(2);
 
-	//// Parametres
 	if (argc < 4) {
 		printf("bad usage\n"); 
 		exit(1) ;
