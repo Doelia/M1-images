@@ -48,17 +48,17 @@ public:
 			imgs[i]->imIn = this->imIn;
 		}
 
-		imgs[0]->pX = 0;
-		imgs[0]->pY = 0;
+		imgs[0]->pX = this->pX;
+		imgs[0]->pY = this->pY;
 
-		imgs[1]->pX = 0;
-		imgs[1]->pY = this->height / 2;
+		imgs[1]->pX = this->pX;
+		imgs[1]->pY = this->pY + this->height / 2;
 
-		imgs[2]->pX = this->width / 2;
-		imgs[2]->pY = 0;
+		imgs[2]->pX = this->pX + this->width / 2;
+		imgs[2]->pY = this->pY;
 
-		imgs[3]->pX = this->width / 2;
-		imgs[3]->pY = this->height / 2;
+		imgs[3]->pX = this->pX + this->width / 2;
+		imgs[3]->pY = this->pY + this->height / 2;
 
 		cout << "divideRegion done	" << endl;
 
@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
 	imIn.load(input);
 
 	Region* r = new Region(&imIn);
-	Region* out = goAlgo(r, 10, seuil);
+	Region* out = goAlgo(r, 20, seuil);
 	cout << "end algo" << endl;
 	out->imIn->save(output);
 
