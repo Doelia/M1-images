@@ -12,6 +12,8 @@ public:
 	int width;
 	int height;
 	ImageBase* imIn;
+	Region* parent;
+	Region** fils;
 public:
 
 	// 4 regions
@@ -39,30 +41,31 @@ public:
 
 	Region** divideRegions() {
 		cout << "divideRegion..." << endl;
-		Region** imgs = new Region*[4];
+		this->fils = new Region*[4];
 
 		for (int i = 0; i < 4; ++i) {
-			imgs[i] = new Region();
-			imgs[i]->width = this->width / 2;
-			imgs[i]->height = this->height / 2;
-			imgs[i]->imIn = this->imIn;
+			fils[i] = new Region();
+			fils[i]->width = this->width / 2;
+			fils[i]->height = this->height / 2;
+			fils[i]->imIn = this->imIn;
+			fils[i]->parent = this;
 		}
 
-		imgs[0]->pX = this->pX;
-		imgs[0]->pY = this->pY;
+		fils[0]->pX = this->pX;
+		fils[0]->pY = this->pY;
 
-		imgs[1]->pX = this->pX;
-		imgs[1]->pY = this->pY + this->height / 2;
+		fils[1]->pX = this->pX;
+		fils[1]->pY = this->pY + this->height / 2;
 
-		imgs[2]->pX = this->pX + this->width / 2;
-		imgs[2]->pY = this->pY;
+		fils[2]->pX = this->pX + this->width / 2;
+		fils[2]->pY = this->pY;
 
-		imgs[3]->pX = this->pX + this->width / 2;
-		imgs[3]->pY = this->pY + this->height / 2;
+		fils[3]->pX = this->pX + this->width / 2;
+		fils[3]->pY = this->pY + this->height / 2;
 
 		cout << "divideRegion done	" << endl;
 
-		return imgs;
+		return fils;
 	}
 
 	int* getAvg() {
@@ -131,6 +134,16 @@ public:
 		}
 	}
 
+	int* getColor() {
+		// TODO
+		return new int[4];
+	}
+
+	bool isSameThan(Region* r) {
+		// TODO
+		return false;
+	}
+
 };
 
 
@@ -155,6 +168,24 @@ Region* goAlgo(Region* r, int n, int seuil) {
 	return merged;
 }
 
+void colorParents(Region* r, int* color) {
+	r->colorRegion(color);
+	if (r->parent != NULL) {
+		colorParents(r->parent, color);
+	}
+}
+
+void fusion(Region* r) {
+	if (r->fils != NULL) {
+		for (int i = 0; i < 4; ++i) {
+			if (r->isSameThan(r->fils[i])) {
+				colorParents(r, r->fils[i]->getColor());
+			}
+			fusion(r->fils[i]);
+		}
+	}
+}
+
 int main(int argc, char **argv) {
 
 	srand(2);
@@ -177,6 +208,7 @@ int main(int argc, char **argv) {
 
 	Region* r = new Region(&imIn);
 	Region* out = goAlgo(r, 20, seuil);
+	fusion(out);
 	cout << "end algo" << endl;
 	out->imIn->save(output);
 
