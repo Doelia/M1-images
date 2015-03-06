@@ -19,7 +19,7 @@ void createImage() {
 	in.write(pathOut);
 }
 
-int main() {
+void testRead() {
 	Image in(448,576,72);
 	char path[250] = "../ressources/BEAUFIX/beaufix.448x576x72.0.6250x0.6250x1.4.img";
 	//char path[250] = "../ressources/BRAINIX/brainix.256x256x100.0.9375x0.9375x1.5.img";
@@ -27,7 +27,31 @@ int main() {
 	cout << "minValue = " << in.getMinValue() << endl;
 	cout << "maxValue = " << in.getMaxValue() << endl;
 	cout << "value = " << in.getValue(200,200,20) << endl;
+}
 
-	createImage();
+void volumeRendering() {
+	Image in(301,324,56);
+	Image out(301,324,1);
 
+	char path[250] = "../ressources/WHATISIT/whatisit.301x324x56.1.1.1.4.img";
+	in.load(path);
+
+	for (int i = 0; i < in.sizeX; ++i)
+	for (int j = 0; j < in.sizeY; ++j) {
+		unsigned long long val = 0;
+		for (int k = 0; k < in.sizeZ; ++k) {
+			val += in.getValue(i,j,k);
+		}
+		out.setValue(i,j,0,val/in.sizeZ);
+	}
+
+	char pathOut[256] = "ok.0.raw";
+	out.write(pathOut);
+}
+
+int main() {
+	
+
+	//createImage();
+	volumeRendering();	
 }

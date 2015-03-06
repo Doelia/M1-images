@@ -12,9 +12,7 @@ typedef unsigned short VALUE;
 class Image {
 
 private:
-	int sizeX; // Largeur
-	int sizeY; // Hateur
-	int sizeZ; // Profondeur
+	
 
 	VALUE* bin;
 
@@ -62,6 +60,10 @@ private:
 	}
 
 public:
+	int sizeX; // Largeur
+	int sizeY; // Hateur
+	int sizeZ; // Profondeur
+	
 	Image(int sizeX, int sizeY, int sizeZ) {
 		this->sizeX = sizeX;
 		this->sizeY = sizeY;
