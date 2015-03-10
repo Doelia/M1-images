@@ -1,0 +1,43 @@
+\documentclass[12pt]{article}
+\usepackage{listings}
+
+\title{Compte rendu TP 1 Imagerie 3D} 
+\author {Stéphane Wouters}
+
+\setlength{\headheight}{28pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Compte rendu TP1 \\ Imagerie 3D, Stéphane Wouters}
+\fancyfoot[C]{\thepage}
+\lstset{language=C++}
+
+
+\begin{document}
+
+\begin{center} \Large Compte rendu TP1\end{center}
+\begin{section} {Stockage de l'image}
+{\bf Méthode:} Utilisation d'une classe Image. Stockage dans un tableau binaire linaire, puis lecture via des calculs sur les indexes.
+
+\begin{lstlising}[frame=single]
+if i
+test
+\end{lstlising}
+
+\end{section}
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
