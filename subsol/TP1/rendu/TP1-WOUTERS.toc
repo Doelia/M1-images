@@ -1,13 +1,20 @@
 \select@language {french}
-\contentsline {section}{\numberline {1}Stockage de l'image}{3}
-\contentsline {paragraph}{}{3}
-\contentsline {paragraph}{}{3}
-\contentsline {subsection}{\numberline {1.1}Lecture de l'image}{3}
-\contentsline {subsection}{\numberline {1.2}Acc\IeC {\`e}s \IeC {\`a} une valeur x,y,z}{3}
-\contentsline {subsection}{\numberline {1.3}D\IeC {\'e}finition d'une valeur}{4}
-\contentsline {section}{\numberline {2}Application}{4}
-\contentsline {section}{\numberline {3}Volume rendering}{4}
-\contentsline {subsection}{\numberline {3.1}Algorithme MinIP}{4}
-\contentsline {subsection}{\numberline {3.2}Algorithme MIP}{5}
-\contentsline {subsection}{\numberline {3.3}Algorithme AIP}{5}
-\contentsline {subsection}{\numberline {3.4}R\IeC {\'e}sultats}{5}
+\contentsline {section}{\numberline {1}Stockage de l'image}{3}{section.1}
+\contentsline {paragraph}{}{3}{section*.2}
+\contentsline {paragraph}{}{3}{section*.3}
+\contentsline {subsection}{\numberline {1.1}Lecture de l'image}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Acc\IeC {\`e}s \IeC {\`a} une valeur x,y,z}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}D\IeC {\'e}finition d'une valeur}{4}{subsection.1.3}
+\contentsline {section}{\numberline {2}Application}{4}{section.2}
+\contentsline {section}{\numberline {3}Volume rendering}{4}{section.3}
+\contentsline {subsection}{\numberline {3.1}Algorithme MinIP}{4}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Algorithme MIP}{4}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Algorithme AIP}{5}{subsection.3.3}
+\contentsline {section}{\numberline {4}R\IeC {\'e}sultats}{5}{section.4}
+\contentsline {paragraph}{}{5}{section*.4}
+\contentsline {paragraph}{}{5}{section*.5}
+\contentsline {section}{\numberline {5}What is it ?}{6}{section.5}
+\contentsline {paragraph}{}{6}{section*.6}
+\contentsline {section}{\numberline {6}Code source}{7}{section.6}
+\contentsline {subsection}{\numberline {6.1}Librairie Image}{7}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Fichier main}{9}{subsection.6.2}
