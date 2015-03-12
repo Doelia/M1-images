@@ -1,4 +1,4 @@
-# M1-images
+# Cours de traitement d'images (GMIN215 - M1 S2)
 
 * Rapport TP2 : https://github.com/Doelia/M1-images/blob/master/tp2/rapport/tp2-swouters.pdf
 * Rapport TP3 : https://github.com/Doelia/M1-images/blob/master/tp3/tp3-swouters.pdf
