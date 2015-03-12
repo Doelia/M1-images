@@ -12,14 +12,12 @@ typedef unsigned short VALUE;
 class Image {
 
 private:
-	
 
 	VALUE* bin;
 
 	void allocateValues() {
 		bin = new VALUE[getSize()];	
 	}
-
 
 	int getSize() {
 		return sizeX*sizeY*sizeZ;
@@ -60,6 +58,7 @@ private:
 	}
 
 public:
+	
 	int sizeX; // Largeur
 	int sizeY; // Hateur
 	int sizeZ; // Profondeur
@@ -99,7 +98,7 @@ public:
 		return max;
 	}
 
-	void load(char* filename) {
+	void load(const char* filename) {
 		FILE *f_image;
 
 		if ((f_image = fopen(filename, "rb")) == NULL) {
@@ -115,7 +114,7 @@ public:
 		}
 	}
 
-	void write(char* filename) {
+	void write(const char* filename) {
 		FILE *f_image;
 		if ((f_image = fopen(filename, "wb")) == NULL) {
 			printf("\nPas d'acces en ecriture sur l'image %s \n", filename);
