@@ -1,4 +1,5 @@
 #include "../lib/Image.h"
+#include "../lib/Voxel.h"
 #include "../lib/ImageTools.h"
 #include <iostream>
 #include <algorithm>
@@ -11,7 +12,7 @@ int main() {
 	Image in(301, 324, 56);
 	in.load(whatisit);
 
-	Image out = createSeul(in);
+	Image out = seuillage(in);
 }
 
 

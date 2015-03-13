@@ -54,7 +54,7 @@ private:
 		return v;
 	}
 
-	VALUE* getVoxel(int x, int y, int z) const {
+	VALUE* getPixel(int x, int y, int z) const {
 		return &bin[getIndexInTabBin(x,y,z)];
 	}
 
@@ -85,12 +85,16 @@ public:
 		}
 	}
 
+	~Image() {
+	 	delete(bin);
+	} 
+
 	VALUE getValue(int x, int y, int z) const {
-		return convertValue(*getVoxel(x,y,z));
+		return convertValue(*getPixel(x,y,z));
 	}
 
 	void setValue(int x, int y, int z, VALUE val) {
-		*getVoxel(x,y,z) = unconvertValue(val);
+		*getPixel(x,y,z) = unconvertValue(val);
 	}
 
 	VALUE getMinValue() const {
