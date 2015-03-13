@@ -101,6 +101,7 @@ public:
 				triangles[1].p1 = sommets[2];
 				triangles[1].p2 = sommets[6];
 				triangles[1].p3 = sommets[5];
+				break;
 			case 1: // Gauche
 				triangles[0].p1 = sommets[4];
 				triangles[0].p2 = sommets[3];
@@ -108,6 +109,7 @@ public:
 				triangles[1].p1 = sommets[4];
 				triangles[1].p2 = sommets[6];
 				triangles[1].p3 = sommets[3];
+				break;
 			case 2: // Derrière
 				triangles[0].p1 = sommets[6];
 				triangles[0].p2 = sommets[2];
@@ -115,6 +117,7 @@ public:
 				triangles[1].p1 = sommets[6];
 				triangles[1].p2 = sommets[3];
 				triangles[1].p3 = sommets[7];
+				break;
 			case 3: // Devant
 				triangles[0].p1 = sommets[0];
 				triangles[0].p2 = sommets[1];
@@ -122,6 +125,7 @@ public:
 				triangles[1].p1 = sommets[0];
 				triangles[1].p2 = sommets[5];
 				triangles[1].p3 = sommets[4];
+				break;
 			case 4: // Haut
 				triangles[0].p1 = sommets[4];
 				triangles[0].p2 = sommets[5];
