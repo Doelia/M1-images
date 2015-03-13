@@ -1,4 +1,4 @@
-#include "Image.h"
+#include "../lib/Image.h"
 #include <iostream>
 #include <algorithm>
 
