@@ -12,7 +12,10 @@ int main() {
 	Image in(301, 324, 56);
 	in.load(whatisit);
 
-	Image out = seuillage(in);
+	cout << "solid name" << endl;
+	vector<Triangle> triangles = seuillage(in, 50);
+	print(triangles);
+	cout << "endsolid name" << endl;
 }
 
 
