@@ -106,22 +106,20 @@ int sumPixelVoisinNoir(ImageBase& in, int seuil) {
 
 ImageBase reconstruire_v1(ImageBase& in, int seuil) {
 
+	cout << "Reconstruction v1, (moyenne)..." << endl;
+
 	int avg = sumPixelVoisinNoir(in, seuil);
 	cout << "avg = " << avg << endl;
 
 	cout << "Reconstruction..." << endl;
-	int decal = in.getColor()?3:1;
 	ImageBase out(in.getWidth(), in.getHeight(), in.getColor());
 	out.copy(in);
 	for (int x = 0; x < in.getHeight(); ++x) {
 		for (int y = 0; y < in.getWidth(); ++y) {
-			for (int c = 0; c < decal; ++c) {
-				int value = in[x*decal][y*decal+c];
-				if (value < seuil) {
-					int newValue = avg;
-					//cout << "set to " << newValue << endl;
-					out[x*decal][y*decal+c] = newValue;
-				}
+			int value = in[x][y];
+			if (value < seuil) {
+				//cout << "set to " << avg << endl;
+				out[x][y] = avg;
 			}
 		}
 	}
@@ -132,24 +130,19 @@ ImageBase reconstruire_v2(ImageBase& in, int seuil) {
 
 	int avg = sumPixelVoisinNoir(in, seuil);
 	cout << "avg = " << avg << endl;
-
-	cout << "Reconstruction..." << endl;
-	int decal = in.getColor()?3:1;
+	cout << "Reconstruction (dilatation)..." << endl;
 
 	bool pixelNoir = true;
 	while (pixelNoir) {
 		pixelNoir = false;
 		for (int x = 0; x < in.getHeight(); ++x) {
 			for (int y = 0; y < in.getWidth(); ++y) {
-				for (int c = 0; c < decal; ++c) {
-					int value = in[x*decal][y*decal+c];
-					if (value < seuil) {
-						pixelNoir = true;
-						int avg = getAvgVoisins(in, x,y, seuil);
-						if (avg > 0) {
-							int newValue = avg;
-							in[x*decal][y*decal+c] = newValue;
-						}
+				int value = in[x][y];
+				if (value < seuil) {
+					pixelNoir = true;
+					int avg = getAvgVoisins(in, x,y, seuil);
+					if (avg > 0) {
+						in[x][y] = avg;
 					}
 				}
 			}
@@ -166,7 +159,6 @@ ImageBase reconstruire_v3(ImageBase& in, int seuil) {
 	cout << "avg = " << avg << endl;
 
 	cout << "Reconstruction..." << endl;
-	int decal = in.getColor()?3:1;
 
 	ImageBase out(in.getWidth(), in.getHeight(), in.getColor());
 	out.copy(in);
@@ -177,23 +169,23 @@ ImageBase reconstruire_v3(ImageBase& in, int seuil) {
 		pixelNoir = false;
 		for (int x = 0; x < in.getHeight(); ++x) {
 			for (int y = 0; y < in.getWidth(); ++y) {
-				for (int c = 0; c < decal; ++c) {
-					int value = in[x*decal][y*decal+c];
-					if (value < seuil) {
-						pixelNoir = true;
+				int value = in[x][y];
+				if (value < seuil) {
+					pixelNoir = true;
 
-						point voisins[4];
-						getVoisins(in, x, y, voisins);
-						for (int i = 0; i < 4; i++) {
-							if (i >= 2)
-								out[voisins[i].x][voisins[i].y] = out[voisins[i-2].x][voisins[i-2].y];
-						}
+					point voisins[4];
+					getVoisins(in, x, y, voisins);
+					for (int i = 0; i < 4; i++) {
+						if (i >= 2)
+							out[voisins[i].x][voisins[i].y] = out[voisins[i-2].x][voisins[i-2].y];
 					}
 				}
 			}
 		}
 		max++;
 	}
+
+	cout << "OK" << endl;
 	
 	
 	return out;
@@ -221,7 +213,7 @@ int main(int argc, char **argv) {
 	ImageBase imIn;
 	imIn.load(input);
 
-	ImageBase imOut = reconstruire_v3(imIn, seuil);
+	ImageBase imOut = reconstruire_v2(imIn, seuil);
 
 
 	imOut.save(output);
