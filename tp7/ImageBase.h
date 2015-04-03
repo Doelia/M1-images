@@ -46,9 +46,9 @@ public:
 	ImageBase(const ImageBase&);
 	ImageBase(int imWidth, int imHeight, bool isColor);
 	~ImageBase(void);
+	float getAvg();
 	
 	void copy(const ImageBase &copy);
-	float getAvg();
 	///////////// Methodes
 protected:
 

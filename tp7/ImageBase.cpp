@@ -72,14 +72,6 @@ void ImageBase::reset()
 	isValid = false;
 }
 
-int ImageBase::getAvg() {
-	double sum = 0;
-	for (int i = 0; i < nTaille; ++i) {
-		sum += data[i];
-	}
-	return sum/nTaille;
-}
-
 void ImageBase::load(char *filename)
 {
 	init();
@@ -124,6 +116,15 @@ void ImageBase::load(char *filename)
 
 	isValid = true;
 }
+
+float ImageBase::getAvg() {
+	double sum = 0;
+	for (int i = 0; i < nTaille; ++i) {
+		sum += data[i];
+	}
+	return sum/(double)nTaille;
+}
+
 
 bool ImageBase::save(char *filename)
 {
